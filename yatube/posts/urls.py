@@ -5,8 +5,6 @@ from . import views
 app_name = 'posts'
 
 urlpatterns = [
-    # Главная страница
-    path('', views.index, name='index'),
     # Страница с постом
     path('group/<slug:slug>/', views.group_posts, name='group_posts'),
     # Профайл пользователя
@@ -34,4 +32,6 @@ urlpatterns = [
         views.profile_unfollow,
         name='profile_unfollow'
     ),
+    # Главная страница
+    path('', views.index, name='index'),
 ]

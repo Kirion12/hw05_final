@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Group, Post, User, Comment, Follow
+from .models import Comment, Follow, Group, Post, User
 from django.contrib.auth.decorators import login_required
-from .forms import PostForm, CommentForm
+from .forms import CommentForm, PostForm
 from .utils import get_paginator
 from django.views.decorators.cache import cache_page
 
@@ -18,7 +18,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()
+    posts = group.posts.select_related('group').all()
     paginat = get_paginator(posts, request)
     context = {
         'group': group,
